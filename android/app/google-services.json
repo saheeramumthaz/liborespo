@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "578827081661",
+    "project_id": "infolibra",
+    "storage_bucket": "infolibra.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578827081661:android:718c03825e7ee8a76ce4d4",
+        "android_client_info": {
+          "package_name": "com.example.infolibra"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_1LfznsLiHpE0ZR8zInOYlp40G02XGOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
