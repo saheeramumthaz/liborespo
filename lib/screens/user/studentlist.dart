@@ -38,6 +38,11 @@ class _StudentListPageState extends State<StudentListPage> {
           itemBuilder: (context, index) {
             final student = _students[index];
             return ListTile(
+              trailing: IconButton(onPressed: (){
+                StudentService studentService=StudentService();
+                studentService.deleteStudent(student.uid.toString());
+                Navigator.pop(context);
+              },icon: Icon(Icons.delete),),
               title: Text(student.name ?? 'No Name'),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,15 +75,7 @@ class _StudentListPageState extends State<StudentListPage> {
               child: Icon(Icons.add),
             ),
             SizedBox(width: 16),
-            FloatingActionButton(
-              onPressed: () async {
-                // Implement deleting functionality here
-                // You can prompt user for confirmation before deleting
-                // For example: showDialog(...);
-              },
-              backgroundColor: Colors.red,
-              child: Icon(Icons.delete),
-            ),
+
           ],
         ),
       ),
