@@ -31,7 +31,7 @@ class BookDetailPage extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              'Quantity: ${book.quantity != null ? book.quantity.toString() : 'Not Available'}',
+              'No of books: ${book.quantity != null ? book.quantity.toString() : 'Not Available'}',
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 8),

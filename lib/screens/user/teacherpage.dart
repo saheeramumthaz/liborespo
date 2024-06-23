@@ -1,9 +1,12 @@
-import 'package:infolibra/screens/common/registerpage.dart';
 import 'package:flutter/material.dart';
-import 'package:infolibra/screens/user/studentregistration.dart';
+import 'package:infolibra/screens/common/registerpage.dart';
+import 'package:infolibra/screens/user/renew_book_page.dart';
+import 'package:infolibra/screens/user/return_book_page.dart';
 
-import '../../studentlist.dart';
+
+import 'studentlist.dart';
 import '../common/search_book.dart';
+import 'book_issue_page.dart';
 
 class TeacherPage extends StatefulWidget {
   const TeacherPage({Key? key}) : super(key: key);
@@ -13,6 +16,8 @@ class TeacherPage extends StatefulWidget {
 }
 
 class _TeacherPageState extends State<TeacherPage> {
+ 
+
   void clearUserProfile() {
     // Implement your logic here to clear the user's profile
     // This could involve clearing data stored locally or making API calls to clear data on the server
@@ -68,75 +73,153 @@ class _TeacherPageState extends State<TeacherPage> {
             padding: EdgeInsets.all(20),
             sliver: SliverList(
                 delegate: SliverChildListDelegate([
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: 20),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(
-                      'assets/img/upicture.png',
-                      width: 300,
-                      height: 200,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  SizedBox(height: 60),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => StudentListPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Colors.blue, // Change the button color here
-                      minimumSize: Size(800, 50),
-                      padding: EdgeInsets.all(20),
-                      shape: RoundedRectangleBorder(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 20),
+                      ClipRRect(
                         borderRadius: BorderRadius.circular(8),
+                        child: Image.asset(
+                          'assets/img/upicture.png',
+                          width: 300,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      'STUDENTS',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Readex Pro',
+                      SizedBox(height: 60),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StudentListPage()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                          Colors.blue, // Change the button color here
+                          minimumSize: Size(800, 50),
+                          padding: EdgeInsets.all(20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          'STUDENTS',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Readex Pro',
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
 
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BookSearchPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BookSearchPage()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
                           Colors.blue, // Change the button color here
-                      minimumSize: Size(800, 50),
-                      padding: EdgeInsets.all(20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                          minimumSize: Size(800, 50),
+                          padding: EdgeInsets.all(20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          'SEARCH BOOKS',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Readex Pro',
+                          ),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      'Search books',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Readex Pro',
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BookIssuePage()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                          Colors.blue, // Change the button color here
+                          minimumSize: Size(800, 50),
+                          padding: EdgeInsets.all(20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          'ISSUE BOOKS',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Readex Pro',
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BookIssuePage()
+                            ),
+                          );
+
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                          Colors.blue, // Change the button color here
+                          minimumSize: Size(800, 50),
+                          padding: EdgeInsets.all(20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          'RENEW BOOKS',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Readex Pro',
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+
+                          // Navigate to Return Books page
+                          // Implement the Return Books page as per your requirements
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                          Colors.blue, // Change the button color here
+                          minimumSize: Size(800, 50),
+                          padding: EdgeInsets.all(20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          'RETURN BOOKS',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Readex Pro',
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ])),
+                ])),
           ),
         ],
       ),

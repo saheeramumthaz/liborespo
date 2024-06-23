@@ -11,7 +11,7 @@ class BookPage extends StatefulWidget {
 class _BookPageState extends State<BookPage> {
   List<Book> _selectedBooks = [];
   List<Book> _books = [];
-  bool _isDeleteMode = false;
+  bool _isDeleteMode =true;
 
   @override
   void initState() {
@@ -61,17 +61,7 @@ class _BookPageState extends State<BookPage> {
                 },
               )
                   : null,
-              onTap: _isDeleteMode
-                  ? () {
-                setState(() {
-                  if (isSelected) {
-                    _selectedBooks.remove(book);
-                  } else {
-                    _selectedBooks.add(book);
-                  }
-                });
-              }
-                  : null,
+
             );
           },
         ),

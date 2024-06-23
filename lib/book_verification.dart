@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infolibra/services/book_services.dart';
-import '../models/book_model.dart'; // Import your Book model
+import 'package:infolibra/outage_verification.dart';
+import '../models/book_model.dart';
 
 
 class BookListPage extends StatefulWidget {
@@ -58,13 +59,19 @@ class _BookListPageState extends State<BookListPage> {
                   Text('ISVN Code: ${book.isvnCode}'),
                 ],
               ),
-              trailing: Checkbox(
-                value: _selected[index],
-                onChanged: (newValue) {
-                  setState(() {
-                    _selected[index] = newValue!;
-                  });
-                },
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Checkbox(
+                    value: _selected[index],
+                    onChanged: (newValue) {
+                      setState(() {
+                        _selected[index] = newValue!;
+                      });
+                    },
+                  ),
+
+                ],
               ),
             );
           },
@@ -73,4 +80,3 @@ class _BookListPageState extends State<BookListPage> {
     );
   }
 }
-

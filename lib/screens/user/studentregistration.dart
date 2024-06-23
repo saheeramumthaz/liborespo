@@ -189,7 +189,7 @@ class _StudentRegistrationFormState extends State<StudentRegistrationForm> {
                   TextFormField(
                     controller: _academicYearController,
                     decoration: InputDecoration(
-                      hintText: "Academic Year",
+                      hintText: "Year of Academic",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
@@ -200,7 +200,7 @@ class _StudentRegistrationFormState extends State<StudentRegistrationForm> {
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please enter your academic year';
+                        return 'Please enter your year of academic';
                       }
                       return null;
                     },
@@ -241,37 +241,7 @@ class _StudentRegistrationFormState extends State<StudentRegistrationForm> {
                   SizedBox(
                     height: 20,
                   ),
-                  // DropdownButtonFormField<String>(
-                  //   value: _selectedRole,
-                  //   onChanged: (value) {
-                  //     setState(() {
-                  //       _selectedRole = value!;
-                  //     });
-                  //   },
-                  //   items: ['admin', 'teacher', 'student']
-                  //       .map<DropdownMenuItem<String>>((String value) {
-                  //     return DropdownMenuItem<String>(
-                  //       value: value,
-                  //       child: Text(value),
-                  //     );
-                  //   }).toList(),
-                  //   decoration: InputDecoration(
-                  //     hintText: "Select Role",
-                  //     hintStyle: themeData.textTheme.labelSmall,
-                  //     enabledBorder: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(12),
-                  //     ),
-                  //     focusedBorder: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(12),
-                  //       borderSide: BorderSide(
-                  //         color: Colors.teal,
-                  //         width: 1.2,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  //
-                  // SizedBox(height: 20),
+                   SizedBox(height: 20),
                   Center(
                     child: ElevatedButton(
                       onPressed: () {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infolibra/screens/user/studentregistration.dart';
 import 'package:infolibra/services/student_services.dart';
-import '../models/student_model.dart';
+import '../../../models/student_model.dart';
 
 
 class StudentListPage extends StatefulWidget {

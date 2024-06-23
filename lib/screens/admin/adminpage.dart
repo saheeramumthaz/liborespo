@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:infolibra/book_page.dart';
 import 'package:infolibra/book_verification.dart';
+import 'package:infolibra/screens/admin/teacher_list_admin.dart';
 
 
-import '../../teacherlist.dart';
+import '../../outage_verification.dart';
+import '../user/teacherlist.dart';
 
 
 
@@ -69,7 +71,7 @@ class AdminPage extends StatelessWidget {
                           // Navigate to the AddBookPage
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) =>  TeacherListPage()), // Replace AddBookPage with your actual page name
+                            MaterialPageRoute(builder: (context) =>  TeacherListPageAdmin()), // Replace AddBookPage with your actual page name
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -141,7 +143,12 @@ class AdminPage extends StatelessWidget {
                       SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
-                          print('OUTAGE VERIFICATION button pressed ...');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DamagedBookPage(),
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue,

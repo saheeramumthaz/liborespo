@@ -54,7 +54,7 @@ class TeacherService {
   Future<bool> deleteTeacher(String uid) async {
     try {
       await _firestore.collection(_collectionPath).doc(uid)
-        ..delete();
+        .delete();
       return true;
     } catch (e) {
       print('Error deleting teacher: $e');

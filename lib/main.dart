@@ -4,8 +4,9 @@ import 'package:infolibra/screens/admin/adminpage.dart';
 import 'package:infolibra/screens/common/loginpage.dart';
 import 'package:infolibra/screens/common/registerpage.dart';
 import 'package:infolibra/screens/common/splash_page.dart';
+import 'package:infolibra/screens/user/renew_book_page.dart';
 
-import 'package:infolibra/screens/user/issue_book.dart';
+
 import 'package:infolibra/screens/user/studentpage.dart';
 import 'package:infolibra/screens/user/teacherpage.dart';
 
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
          'admin':(context)=>AdminPage(),
          'teacher':(context)=>TeacherPage(),
          'student':(context)=>StudentPage(),
-         'book':(context)=>BookPage()
+         'book':(context)=>BookPage(),
+        
 
       },
       debugShowCheckedModeBanner: false,

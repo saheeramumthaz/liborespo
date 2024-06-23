@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 import '../../book_page.dart';
 import '../../models/book_model.dart';
 import '../../services/book_services.dart';
-
 
 class BookAddingPage extends StatelessWidget {
   @override
@@ -41,7 +42,6 @@ class BookAddingForm extends StatefulWidget {
 
 class _BookAddingFormState extends State<BookAddingForm> {
   final _formKey = GlobalKey<FormState>();
-  final _bookNoController = TextEditingController();
   final _titleController = TextEditingController();
   final _authorsController = TextEditingController();
   final _pagesController = TextEditingController();
@@ -50,6 +50,7 @@ class _BookAddingFormState extends State<BookAddingForm> {
   final _printedYearController = TextEditingController();
   final _purchasedYearController = TextEditingController();
   final _isvnCodeController = TextEditingController();
+  final quantityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,6 @@ class _BookAddingFormState extends State<BookAddingForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _buildFormField('Book No:', _bookNoController),
             _buildFormField('Title:', _titleController),
             _buildFormField('Authors:', _authorsController),
             _buildFormField('No of Pages:', _pagesController,
@@ -73,14 +73,30 @@ class _BookAddingFormState extends State<BookAddingForm> {
                 keyboardType: TextInputType.number),
             _buildFormField('Purchased Year:', _purchasedYearController,
                 keyboardType: TextInputType.number),
-            _buildFormField('ISVN Code:', _isvnCodeController),
+            _buildFormField('ISBN Code:', _isvnCodeController),
+
+            _buildFormField("Quantity", quantityController,keyboardType: TextInputType.number),
             SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
+                    // Generate a unique book number using UUID
+                    String bookNo = Uuid().v4();
+
+                    // Check if the book already exists
+                    bool bookExists = await BookService().bookExists(bookNo, _isvnCodeController.text);
+                    if (bookExists) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Book with this number or ISVN code already exists'),
+                      ));
+                      return;
+                    }
+
                     final book = Book(
-                      bookNo: _bookNoController.text,
+                      isAvailable: true,
+                      bid: bookNo,
+                      bookNo: bookNo,
                       title: _titleController.text,
                       authors: _authorsController.text,
                       pages: int.tryParse(_pagesController.text) ?? 0,
@@ -108,7 +124,6 @@ class _BookAddingFormState extends State<BookAddingForm> {
       ),
     );
   }
-
 
   Widget _buildFormField(String labelText, TextEditingController controller,
       {TextInputType? keyboardType}) {
@@ -151,4 +166,3 @@ class _BookAddingFormState extends State<BookAddingForm> {
     );
   }
 }
-

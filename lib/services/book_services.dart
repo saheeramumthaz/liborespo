@@ -3,18 +3,29 @@ import '../models/book_model.dart';
 
 class BookService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final CollectionReference _bookCollection = FirebaseFirestore.instance.collection('books');
+  final CollectionReference bookCollection = FirebaseFirestore.instance.collection('books');
 
-  // Add a new book to Firestore
-  Future<String?> addBook(Book book) async {
+  Future<void> addBook(Book book) async {
     try {
-      DocumentReference docRef = await _bookCollection.add(book.toJson());
-      // Set the bid after the document is created
-      await docRef.update({'bid': docRef.id});
-      return docRef.id;
+      await bookCollection.add(book.toJson());
     } catch (e) {
-      print('Error adding book: $e');
-      return null;
+      print("Error adding book: $e");
+      // Handle the error accordingly
+    }
+  }
+
+  Future<bool> bookExists(String bookNo, String isvnCode) async {
+    try {
+      final querySnapshot = await bookCollection
+          .where('bookNo', isEqualTo: bookNo)
+          .where('isvnCode', isEqualTo: isvnCode)
+          .get();
+
+      return querySnapshot.docs.isNotEmpty;
+    } catch (e) {
+      print("Error checking if book exists: $e");
+      // Handle the error accordingly
+      return false;
     }
   }
 
@@ -23,7 +34,7 @@ class BookService {
   // Delete a book from Firestore
   Future<bool> deleteBook(String bid) async {
     try {
-      await _bookCollection.doc(bid).delete();
+      await bookCollection.doc(bid).delete();
       return true;
     } catch (e) {
       print('Error deleting book: $e');
@@ -34,7 +45,7 @@ class BookService {
   // Fetch a book by its ID from Firestore
   Future<Book?> getBookById(String bid) async {
     try {
-      DocumentSnapshot docSnapshot = await _bookCollection.doc(bid).get();
+      DocumentSnapshot docSnapshot = await bookCollection.doc(bid).get();
       if (docSnapshot.exists) {
         return Book.fromJson(docSnapshot.data() as Map<String, dynamic>);
       } else {
@@ -49,7 +60,7 @@ class BookService {
   // Fetch all books from Firestore
   Future<List<Book>> getAllBooks() async {
     try {
-      QuerySnapshot querySnapshot = await _bookCollection.get();
+      QuerySnapshot querySnapshot = await bookCollection.get();
       return querySnapshot.docs.map((doc) {
         Book book = Book.fromJson(doc.data() as Map<String, dynamic>);
         book.bid = doc.id;

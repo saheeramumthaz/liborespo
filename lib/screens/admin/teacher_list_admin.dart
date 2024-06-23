@@ -2,17 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:infolibra/screens/user/teacherregistration.dart';
 import 'package:infolibra/services/teacher_services.dart';
-import '../models/teacher_model.dart';
+import '../../../models/teacher_model.dart';
 
-class TeacherListPage extends StatefulWidget {
+class TeacherListPageAdmin extends StatefulWidget {
   @override
-  _TeacherListPageState createState() => _TeacherListPageState();
+  _TeacherListPageAdminState createState() => _TeacherListPageAdminState();
 }
 
-class _TeacherListPageState extends State<TeacherListPage> {
+class _TeacherListPageAdminState extends State<TeacherListPageAdmin> {
   List<Teacher> _selectedTeachers = [];
   List<Teacher> _teachers = [];
-  bool _isDeleteMode = false;
+  bool _isDeleteMode = true;
 
   @override
   void initState() {
@@ -47,17 +47,21 @@ class _TeacherListPageState extends State<TeacherListPage> {
             final teacher = _teachers[index];
             final isSelected = _selectedTeachers.contains(teacher);
             return ListTile(
+              tileColor: isSelected ? Colors.red[100] : Colors.green,
               title: Text(teacher.name ?? 'No Name'),
               subtitle: Text(teacher.email ?? 'No Email'),
               trailing: _isDeleteMode
-                  ? Checkbox(
-                value: isSelected,
-                onChanged: (bool? value) {
+                  ? IconButton(
+                icon: Icon(
+                  isSelected ? Icons.check_box : Icons.check_box_outline_blank,
+                  color: isSelected ? Colors.red : Colors.grey,
+                ),
+                onPressed: () {
                   setState(() {
-                    if (value == true) {
-                      _selectedTeachers.add(teacher);
-                    } else {
+                    if (isSelected) {
                       _selectedTeachers.remove(teacher);
+                    } else {
+                      _selectedTeachers.add(teacher);
                     }
                   });
                 },
@@ -89,7 +93,7 @@ class _TeacherListPageState extends State<TeacherListPage> {
               onPressed: () async {
                 await Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TeacherRegisterPage()), // Replace with your AddTeacherPage
+                  MaterialPageRoute(builder: (context) => TeacherRegisterPage()),
                 );
                 _fetchTeachers(); // Refresh the list after adding a teacher
               },
@@ -110,7 +114,7 @@ class _TeacherListPageState extends State<TeacherListPage> {
               child: Icon(Icons.delete),
             ),
             if (_isDeleteMode) ...[
-              SizedBox(height: 10),
+              SizedBox(width: 10),
               FloatingActionButton(
                 onPressed: () async {
                   for (var teacher in _selectedTeachers) {
