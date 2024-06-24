@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../models/book_model.dart';
 import '../../models/issue_model.dart';
+import '../../models/student_model.dart';
+import '../../models/teacher_model.dart';
 import '../../services/book_services.dart';
 import '../../services/issue_services.dart';
-
+import '../../services/student_services.dart';
+import '../../services/teacher_services.dart';
 
 class BookIssuePage extends StatefulWidget {
   @override
@@ -19,15 +22,33 @@ class _BookIssuePageState extends State<BookIssuePage> {
 
   Book? _selectedBook;
   List<Book> _books = [];
+  List<Student> _students = [];
+  List<Teacher> _teachers = [];
+
+  bool _isTeacher = false;
+  Student? _selectedStudent;
+  Teacher? _selectedTeacher;
 
   @override
   void initState() {
     super.initState();
     _fetchBooks();
+    _fetchStudents();
+    _fetchTeachers();
   }
 
   Future<void> _fetchBooks() async {
     _books = await BookService().getAllBooks();
+    setState(() {});
+  }
+
+  Future<void> _fetchStudents() async {
+    _students = await StudentService().getAllStudents();
+    setState(() {});
+  }
+
+  Future<void> _fetchTeachers() async {
+    _teachers = await TeacherService().getAllTeachers();
     setState(() {});
   }
 
@@ -81,6 +102,79 @@ class _BookIssuePageState extends State<BookIssuePage> {
                 Text('Title: ${_selectedBook!.title}'),
                 Text('Author(s): ${_selectedBook!.authors}'),
               ],
+              SizedBox(height: 16),
+              CheckboxListTile(
+                title: Text("Issue to Teacher"),
+                value: _isTeacher,
+                onChanged: (bool? value) {
+                  setState(() {
+                    _isTeacher = value ?? false;
+                  });
+                },
+              ),
+              SizedBox(height: 16),
+              if (_isTeacher)
+                DropdownButtonFormField<Teacher>(
+                  decoration: InputDecoration(
+                    labelText: 'Select Teacher',
+                    filled: true,
+                    fillColor: Colors.white,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal),
+                    ),
+                  ),
+                  items: _teachers.map((Teacher teacher) {
+                    return DropdownMenuItem<Teacher>(
+                      value: teacher,
+                      child: Text('${teacher.uid} - ${teacher.name}'),
+                    );
+                  }).toList(),
+                  onChanged: (Teacher? teacher) {
+                    setState(() {
+                      _selectedTeacher = teacher;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please select a teacher';
+                    }
+                    return null;
+                  },
+                )
+              else
+                DropdownButtonFormField<Student>(
+                  decoration: InputDecoration(
+                    labelText: 'Select Student',
+                    filled: true,
+                    fillColor: Colors.white,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal),
+                    ),
+                  ),
+                  items: _students.map((Student student) {
+                    return DropdownMenuItem<Student>(
+                      value: student,
+                      child: Text('${student.uid} - ${student.name}'),
+                    );
+                  }).toList(),
+                  onChanged: (Student? student) {
+                    setState(() {
+                      _selectedStudent = student;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please select a student';
+                    }
+                    return null;
+                  },
+                ),
               SizedBox(height: 16),
               TextFormField(
                 controller: _issueDateController,
@@ -162,13 +256,19 @@ class _BookIssuePageState extends State<BookIssuePage> {
                         issuerName: _issuerNameController.text,
                       );
 
+                      if (_isTeacher && _selectedTeacher != null) {
+                        bookIssue.issuedTo = 'Teacher';
+                        bookIssue.issuerId = _selectedTeacher!.uid;
+                      } else if (!_isTeacher && _selectedStudent != null) {
+                        bookIssue.issuedTo = 'Student';
+                        bookIssue.issuerId = _selectedStudent!.uid;
+                      }
+
                       bool success = await BookIssueService().addBookIssue(bookIssue);
 
                       if (success) {
-                        // Navigate back or show a success message
                         Navigator.pop(context);
                       } else {
-                        // Show an error message if the book issue was not added successfully
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Error issuing book')),
                         );

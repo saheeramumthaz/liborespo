@@ -20,7 +20,7 @@ class _StudentListPageState extends State<StudentListPage> {
 
   Future<void> _fetchStudents() async {
     // Fetch all students from the service
-    _students = await StudentService().getStudents();
+    _students = await StudentService().getAllStudents();
     setState(() {});
   }
 

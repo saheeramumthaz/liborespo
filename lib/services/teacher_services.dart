@@ -47,6 +47,10 @@ class TeacherService {
     }
   }
 
+  Future<List<Teacher>> getAllTeachers() async {
+    QuerySnapshot snapshot = await _firestore.collection('teachers').get();
+    return snapshot.docs.map((doc) => Teacher.fromJson(doc.data() as Map<String, dynamic>)).toList();
+  }
 
 
 

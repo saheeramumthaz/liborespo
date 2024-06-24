@@ -53,7 +53,7 @@ class StudentService {
     }
   }
 
-  Future<List<Student>> getStudents() async {
+  Future<List<Student>> getAllStudents() async {
     try {
       QuerySnapshot querySnapshot = await _firestore.collection(_collectionPath).get();
       List<Student> students = [];

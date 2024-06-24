@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:infolibra/screens/common/registerpage.dart';
 import 'package:infolibra/screens/user/renew_book_page.dart';
@@ -33,7 +34,8 @@ class _TeacherPageState extends State<TeacherPage> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {
-                Navigator.pushReplacementNamed(context, 'login');
+                FirebaseAuth.instance.signOut();
+                Navigator.pushNamedAndRemoveUntil(context, "/login", (route) => false);
               },
             ),
             backgroundColor: Colors.teal,
@@ -142,11 +144,11 @@ class _TeacherPageState extends State<TeacherPage> {
                       SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => BookIssuePage()),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => BookIssuePage()),
+                          // );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
@@ -168,12 +170,12 @@ class _TeacherPageState extends State<TeacherPage> {
                       SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BookIssuePage()
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => BookIssuePage()
+                          //   ),
+                          // );
 
                         },
                         style: ElevatedButton.styleFrom(
